@@ -1,0 +1,44 @@
+{% extends "frontend/base.html" %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h5>Upload a file (temporary)</h5>
+      <form id="uploadForm">
+        <div class="mb-3">
+          <input class="form-control" type="file" id="fileInput" name="file" required>
+        </div>
+        <div class="mb-3">
+          <label>Expiry (minutes)</label>
+          <select id="expiry" class="form-select">
+            <option value="5" selected>5 minutes</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Upload</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card p-3">
+      <h5>Shorten a URL (temporary)</h5>
+      <form id="urlForm">
+        <div class="mb-3">
+          <input id="urlInput" class="form-control" type="url" placeholder="https://example.com" required>
+        </div>
+        <div class="mb-3">
+          <label>Expiry (minutes)</label>
+          <select id="expiryUrl" class="form-select">
+            <option value="5" selected>5 minutes</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <button class="btn btn-primary" type="submit">Create Link</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="resultArea" class="mt-4"></div>
+{% endblock %}
