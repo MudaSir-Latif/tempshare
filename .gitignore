@@ -27,9 +27,6 @@ tmp/
 .vscode/
 .idea/
 
-# Django collected static files
-static/
-static_root/
 
 # OS-specific junk
 .DS_Store
