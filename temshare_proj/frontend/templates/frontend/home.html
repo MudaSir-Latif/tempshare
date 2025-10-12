@@ -1,143 +1,123 @@
 {% extends "frontend/base.html" %}
 {% block content %}
 <div class="row justify-content-center">
-  <div class="col-md-8">
-    <div class="card shadow-sm">
-      <div class="card-body">
-        <h3 class="card-title mb-3">Share a file or a URL (expires in 5 minutes)</h3>
+  <div class="col-lg-10">
+    <div class="text-center mb-4">
+      <h2>Share Files or URLs</h2>
+      <p class="text-muted">Links expire in 5 minutes</p>
+    </div>
 
-        <ul class="nav nav-tabs" id="tab" role="tablist">
-          <li class="nav-item">
-            <button class="nav-link active" id="file-tab" data-bs-toggle="tab" data-bs-target="#file" type="button">Upload File</button>
-          </li>
-          <li class="nav-item">
-            <button class="nav-link" id="url-tab" data-bs-toggle="tab" data-bs-target="#url" type="button">Share URL</button>
-          </li>
-        </ul>
-
-        <div class="tab-content mt-3">
-          <div class="tab-pane fade show active" id="file">
+    <div class="row g-4">
+      <!-- File Upload Card -->
+      <div class="col-md-6" id="fileCard">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h4 class="card-title mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+                <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"/>
+                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+              </svg>
+              Upload File
+            </h4>
+            
             <form action="/upload/" method="post" enctype="multipart/form-data" id="fileForm">
               {% csrf_token %}
               <div class="mb-3">
-                <label class="form-label">Choose file</label>
+                <label class="form-label">Choose a file to share</label>
                 <input class="form-control" type="file" name="file" id="fileInput" required>
                 <small class="text-muted" id="fileInfo"></small>
               </div>
-              <button class="btn btn-primary" type="submit" id="uploadBtn">Upload & Generate Link</button>
-              <div class="mt-2">
-                <div class="progress" id="uploadProgress" style="display: none;">
-                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
-                </div>
+              <button class="btn btn-primary w-100 mb-2" type="submit" id="uploadBtn">
+                Upload & Generate Link
+              </button>
+              <div class="progress" id="uploadProgress" style="display: none;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
               </div>
             </form>
-          </div>
 
-          <div class="tab-pane fade" id="url">
+            <hr class="my-3">
+            
+            <button class="btn btn-outline-secondary w-100" id="showUrlBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+              </svg>
+              Share URL Instead
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- URL Share Card -->
+      <div class="col-md-6" id="urlCard" style="display: none;">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h4 class="card-title mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-link-45deg" viewBox="0 0 16 16">
+                <path d="M4.715 6.542 3.343 7.914a3 3 0 1 0 4.243 4.243l1.828-1.829A3 3 0 0 0 8.586 5.5L8 6.086a1 1 0 0 0-.154.199 2 2 0 0 1 .861 3.337L6.88 11.45a2 2 0 1 1-2.83-2.83l.793-.792a4 4 0 0 1-.128-1.287z"/>
+                <path d="M6.586 4.672A3 3 0 0 0 7.414 9.5l.775-.776a2 2 0 0 1-.896-3.346L9.12 3.55a2 2 0 1 1 2.83 2.83l-.793.792c.112.42.155.855.128 1.287l1.372-1.372a3 3 0 1 0-4.243-4.243z"/>
+              </svg>
+              Share URL
+            </h4>
+            
             <form action="/url/" method="post" id="urlForm">
               {% csrf_token %}
               <div class="mb-3">
-                <label class="form-label">Enter URL</label>
+                <label class="form-label">Enter URL to share</label>
                 <input class="form-control" type="url" name="url" id="urlInput" placeholder="https://example.com" required>
                 <small class="text-muted">Enter a valid URL starting with http:// or https://</small>
               </div>
-              <button class="btn btn-primary" type="submit">Generate Link</button>
+              <button class="btn btn-primary w-100 mb-2" type="submit">
+                Generate Shareable Link
+              </button>
             </form>
+
+            <hr class="my-3">
+            
+            <button class="btn btn-outline-secondary w-100" id="showFileBtn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up" viewBox="0 0 16 16">
+                <path d="M8.5 11.5a.5.5 0 0 1-1 0V7.707L6.354 8.854a.5.5 0 1 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 7.707z"/>
+                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+              </svg>
+              Upload File Instead
+            </button>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </div>
 
 <script>
-  // File upload handling
-  const fileInput = document.getElementById('fileInput');
-  const fileInfo = document.getElementById('fileInfo');
-  const fileForm = document.getElementById('fileForm');
-  const uploadBtn = document.getElementById('uploadBtn');
-  const uploadProgress = document.getElementById('uploadProgress');
+  document.addEventListener("DOMContentLoaded", function() {
+    const fileCard = document.getElementById('fileCard');
+    const urlCard = document.getElementById('urlCard');
+    const showUrlBtn = document.getElementById('showUrlBtn');
+    const showFileBtn = document.getElementById('showFileBtn');
 
-  // Display file information when selected
-  fileInput.addEventListener('change', function(e) {
-    const file = e.target.files[0];
-    if (file) {
-      const size = (file.size / 1024 / 1024).toFixed(2); // Convert to MB
-      const sizeText = file.size > 1024 * 1024 
-        ? `${size} MB` 
-        : `${(file.size / 1024).toFixed(2)} KB`;
-      
-      fileInfo.textContent = `Selected: ${file.name} (${sizeText})`;
-      
-      // Warn for large files
-      if (file.size > 50 * 1024 * 1024) { // 50MB
-        fileInfo.textContent += ' ⚠️ Large file - upload may take time';
-        fileInfo.classList.add('text-warning');
-      } else {
-        fileInfo.classList.remove('text-warning');
-      }
-    }
-  });
-
-  // Show progress on form submit
-  fileForm.addEventListener('submit', function(e) {
-    uploadBtn.disabled = true;
-    uploadBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Uploading...';
-    uploadProgress.style.display = 'block';
-    
-    // Simulate progress (since we can't track actual upload without AJAX)
-    let progress = 0;
-    const progressBar = uploadProgress.querySelector('.progress-bar');
-    const interval = setInterval(() => {
-      progress += 10;
-      progressBar.style.width = progress + '%';
-      if (progress >= 90) {
-        clearInterval(interval);
-      }
-    }, 200);
-  });
-
-  // URL form validation
-  const urlForm = document.getElementById('urlForm');
-  const urlInput = document.getElementById('urlInput');
-
-  urlInput.addEventListener('input', function(e) {
-    const url = e.target.value;
-    if (url && !url.match(/^https?:\/\//)) {
-      urlInput.setCustomValidity('URL must start with http:// or https://');
-    } else {
-      urlInput.setCustomValidity('');
-    }
-  });
-
-  // Clear form on tab switch
-  const fileTabs = document.querySelectorAll('button[data-bs-toggle="tab"]');
-  fileTabs.forEach(tab => {
-    tab.addEventListener('shown.bs.tab', function(e) {
-      // Reset file form
-      fileForm.reset();
-      fileInfo.textContent = '';
-      uploadBtn.disabled = false;
-      uploadBtn.innerHTML = 'Upload & Generate Link';
-      uploadProgress.style.display = 'none';
-      
-      // Reset URL form
-      urlForm.reset();
+    // Toggle to URL card
+    showUrlBtn.addEventListener('click', function() {
+      fileCard.style.display = 'none';
+      urlCard.style.display = 'block';
     });
-  });
 
-  // Prevent accidental page refresh when form is being filled
-  let formStarted = false;
-  
-  fileInput.addEventListener('change', () => formStarted = true);
-  urlInput.addEventListener('input', () => formStarted = true);
-  
-  window.addEventListener('beforeunload', function(e) {
-    if (formStarted && !uploadBtn.disabled) {
-      e.preventDefault();
-      e.returnValue = '';
-    }
+    // Toggle to File card
+    showFileBtn.addEventListener('click', function() {
+      urlCard.style.display = 'none';
+      fileCard.style.display = 'block';
+    });
+
+    // Optional: Show file size when selected
+    const fileInput = document.getElementById('fileInput');
+    const fileInfo = document.getElementById('fileInfo');
+    
+    fileInput.addEventListener('change', function() {
+      if (this.files.length > 0) {
+        const file = this.files[0];
+        const size = (file.size / 1024 / 1024).toFixed(2);
+        fileInfo.textContent = `Selected: ${file.name} (${size} MB)`;
+      }
+    });
   });
 </script>
 
