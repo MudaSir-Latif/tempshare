@@ -35,6 +35,7 @@ jobs:
           pip install -r requirements.txt
           pip install pytest pytest-django
       - name: Run tests
+        working-directory: tempshare/temshare_proj
         run: pytest
 
   deploy:
