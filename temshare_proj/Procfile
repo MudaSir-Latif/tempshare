@@ -1,1 +1,1 @@
-web: gunicorn tempshare_project.wsgi --bind 0.0.0.0:$PORT
+web: gunicorn temshare_proj.wsgi --bind 0.0.0.0:$PORT
