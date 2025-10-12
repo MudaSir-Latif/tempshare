@@ -1,11 +1,12 @@
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #8b5cf6;
-    --accent: #ec4899;
+    /* Modern Blue-Teal Theme */
+    --primary: #0ea5e9;
+    --primary-dark: #0284c7;
+    --secondary: #06b6d4;
+    --accent: #8b5cf6;
     --success: #10b981;
     --warning: #f59e0b;
-    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-gradient: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #8b5cf6 100%);
     --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
     --card-hover-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
 }
@@ -18,7 +19,7 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #8b5cf6 100%);
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
@@ -32,27 +33,34 @@ body::before {
     right: 0;
     bottom: 0;
     background:
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.2) 0%, transparent 50%);
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.25) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(6, 182, 212, 0.2) 0%, transparent 40%);
     pointer-events: none;
     z-index: 0;
 }
 
 .navbar {
-    background: black !important;
+    background: rgba(0, 0, 0, 0.8) !important;
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-brand {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: white !important;
     letter-spacing: -0.5px;
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.05);
+}
+
+.navbar-brand svg {
+    filter: drop-shadow(0 2px 4px rgba(99, 102, 241, 0.5));
 }
 
 main.container {
@@ -209,6 +217,22 @@ main.container {
     transform: translateY(0);
 }
 
+.btn-our {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 14px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn-our:hover {
+    background-color: #0056b3;
+    color: white;
+    text-decoration: none;
+}
+
 .alert {
     border: none;
     border-radius: 16px;
@@ -218,22 +242,21 @@ main.container {
 }
 
 .alert-info {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+    background: white;
     border-left: 4px solid var(--primary);
 }
 
 .alert-warning {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 191, 36, 0.1));
     border-left: 4px solid var(--warning);
 }
 
 .alert-heading {
-    color: var(--primary);
+    color: black;
     font-weight: 700;
 }
 
 .alert a {
-    color: var(--primary);
+    color: rgb(207, 138, 12);
     text-decoration: none;
     font-weight: 600;
     word-break: break-all;
@@ -343,6 +366,141 @@ input[type="file"]::file-selector-button:hover {
     }
 }
 
+/* Card toggle animations */
+#fileCard, #urlCard {
+    animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Toggle button styling */
+.btn-outline-secondary {
+    border: 2px solid #e5e7eb;
+    color: #6b7280;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.05), rgba(139, 92, 246, 0.05));
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.btn-outline-secondary svg {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+/* Card icons styling */
+.card-title svg {
+    vertical-align: middle;
+    margin-right: 0.75rem;
+    color: var(--primary);
+}
+
+/* Enhanced card styling for side-by-side layout */
+.row.g-4 .col-md-6 {
+    transition: all 0.3s ease;
+}
+
+/* File info text */
+#fileInfo {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--success);
+    font-weight: 500;
+}
+
+/* Progress bar styling */
+.progress {
+    height: 8px;
+    border-radius: 8px;
+    background: rgba(99, 102, 241, 0.1);
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 8px;
+}
+
+/* Header text styling */
+.text-center h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ffffff, rgba(255, 255, 255, 0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.text-center .text-muted {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Divider styling */
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.2), transparent);
+    margin: 1.5rem 0;
+}
+
+/* Small text improvements */
+small.text-muted {
+    color: #9ca3af !important;
+    font-size: 0.875rem;
+}
+
+/* Input placeholder styling */
+.form-control::placeholder {
+    color: #9ca3af;
+    opacity: 1;
+}
+
+/* Hover effect for cards in grid */
+.row.g-4 .card {
+    position: relative;
+    height: 100%;
+}
+
+.row.g-4 .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.row.g-4 .card form {
+    flex: 1;
+}
+
+/* Button loading state (if needed) */
+.btn-primary:disabled {
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .card {
@@ -353,7 +511,37 @@ input[type="file"]::file-selector-button:hover {
         font-size: 1.5rem;
     }
 
-    .btn-primary {
+    .btn-primary,
+    .btn-outline-secondary {
         width: 100%;
     }
+
+    .text-center h2 {
+        font-size: 2rem;
+    }
+
+    .row.g-4 {
+        gap: 1rem !important;
+    }
+
+    /* Stack cards on mobile */
+    #fileCard, #urlCard {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Focus visible for accessibility */
+.btn:focus-visible,
+.form-control:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* Improve button with icons alignment */
+.btn svg {
+    transition: transform 0.3s ease;
+}
+
+.btn:hover svg {
+    transform: translateX(2px);
 }
