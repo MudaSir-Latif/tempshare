@@ -48,7 +48,7 @@
         }
 
         .navbar {
-            background: rgba(255, 255, 255, 0.95) !important;
+            background: black !important;
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
