@@ -23,7 +23,10 @@ class TimestampedModel(models.Model):
 
 
 class FileShare(TimestampedModel):
-    token = models.CharField(max_length=16, unique=True, default=generate_token)
+    token = models.CharField(
+        max_length=16,
+        unique=True,
+        default=generate_token)
     file = models.FileField(upload_to="uploads/")
     expires_at = models.DateTimeField(default=get_burnout_time)
 
@@ -46,7 +49,10 @@ class FileShare(TimestampedModel):
 
 
 class URLShare(TimestampedModel):
-    token = models.CharField(max_length=16, unique=True, default=generate_token)
+    token = models.CharField(
+        max_length=16,
+        unique=True,
+        default=generate_token)
     original_url = models.URLField()
     expires_at = models.DateTimeField(default=get_burnout_time)
 

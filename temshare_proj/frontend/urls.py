@@ -1,10 +1,10 @@
+from core.views import upload_file, submit_url, serve_file, redirect_url
 from django.urls import path
 from core import views as core_views  # ✅ import views from core
 from . import views  # this is frontend.views (for home, templates, etc.)
 
 
 app_name = "frontend"
-from core.views import upload_file,submit_url,serve_file,redirect_url
 urlpatterns = [
     path("", core_views.home, name="home"),
     path("upload/", core_views.upload_file, name="upload"),

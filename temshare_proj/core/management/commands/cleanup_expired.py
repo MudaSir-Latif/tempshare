@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand
 from core.models import FileShare, URLShare
 from django.utils import timezone
 
+
 class Command(BaseCommand):
     help = "Delete expired FileShare and URLShare entries (and delete files)."
 
