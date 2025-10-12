@@ -54,12 +54,18 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/ubuntu/tempshare
+            echo "🚀 Pulling latest code from GitHub..."
             git fetch origin main
             git reset --hard origin/main
+            echo "📦 Activating virtual environment..."
             source /home/ubuntu/venv/bin/activate
+            echo "⚙️ Installing dependencies..."
             pip install -r temshare_proj/requirements.txt
+
+            echo "🧱 Running migrations and collecting static files..."
             cd temshare_proj
             python manage.py migrate --noinput
             python manage.py collectstatic --noinput
+            echo "🔁 Restarting Gunicorn and Nginx..."
             sudo systemctl restart gunicorn
             sudo systemctl restart nginx
