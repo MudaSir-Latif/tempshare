@@ -53,10 +53,11 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           port: ${{ secrets.PORT }}
           script: |
-            cd ${{ secrets.PROJECT_DIR }}
+            cd /home/ubuntu/tempshare
             git pull origin main
-            source ${{ secrets.VENV_DIR }}/bin/activate
-            pip install -r tempshare/temshare_proj/requirements.txt
+            source /home/ubuntu/venv/bin/activate
+            pip install -r temshare_proj/requirements.txt
+            cd temshare_proj
             python manage.py migrate --noinput
             python manage.py collectstatic --noinput
             sudo systemctl restart gunicorn
