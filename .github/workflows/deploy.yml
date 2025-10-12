@@ -54,7 +54,8 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/ubuntu/tempshare
-            git pull origin main
+            git fetch origin main
+            git reset --hard origin/main
             source /home/ubuntu/venv/bin/activate
             pip install -r temshare_proj/requirements.txt
             cd temshare_proj
