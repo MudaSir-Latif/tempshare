@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>URL Shared</title>
-    <link rel="stylesheet" href="{% static 'custom.css' %}">
-</head>
-<body class="container py-5">
-    <h2 class="mb-3">✅ Your temporary link is ready!</h2>
-    <p>This link will expire in 5 minutes:</p>
-    <div class="alert alert-info">
-        <a href="{{ link }}" target="_blank">{{ link }}</a>
-    </div>
-    <a href="/" class="btn btn-primary">Share Another</a>
-</body>
-</html>
+{% extends "frontend/base.html" %}
+{% block content %}
+<div class="alert alert-info">
+  {% if error %}
+    <strong>Error:</strong> {{ error }}
+  {% else %}
+    <p>Link uploaded. Share this link (expires in ~5 minutes):</p>
+    <p><a href="{{ link }}">{{ link }}</a></p>
+  {% endif %}
+</div>
+<p><a href="/" class="btn btn-our">Share Another</a></p>
+
+{% endblock %}
