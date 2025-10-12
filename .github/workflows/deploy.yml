@@ -30,13 +30,13 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        working-directory: tempshare/temshare_proj
+        working-directory: temshare_proj
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-django
       - name: Run tests
-        working-directory: tempshare/temshare_proj
+        working-directory: temshare_proj
         run: pytest
 
   deploy:
