@@ -116,7 +116,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Extra directories Django will look for static files in
 STATICFILES_DIRS = [
-    BASE_DIR / "frontend" / "static",  # /frontend/static/
+    BASE_DIR / "static",  # /frontend/static/
 ]
 
 # Media (uploaded user files)
